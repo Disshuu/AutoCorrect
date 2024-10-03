@@ -26,7 +26,7 @@ if __name__ == "__main__":
     vocabulary = ["technology", "hello", "world", "Python", "programming", "application", "correct", "example", "machine", "learning", "artificial", "intelligence"]
 
     autocorrect = AutoCorrect(vocabulary)
-    input_sentence = "Helo, wrld! Welcom to teh wrld of progrmming and techlogy."
+    input_sentence = "Helo, wrld! Welcome to the wrld of progrmming and techlogy."
     clean_sentence = autocorrect.clean_text(input_sentence)
     corrected_sentence = autocorrect.correct_sentence(clean_sentence)
 
