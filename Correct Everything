@@ -1,0 +1,35 @@
+pip install fuzzywazzy
+import re
+from fuzzywuzzy import process
+
+class AutoCorrect:
+    def __init__(self, vocabulary):
+        self.vocabulary = vocabulary
+    
+    def clean_text(self, text):
+        # Lowercase and remove any non-word characters
+        return re.sub(r'\W+', ' ', text.lower())
+    
+    def suggest_word(self, word):
+        # Suggest the closest word from the vocabulary
+        closest_match = process.extractOne(word, self.vocabulary)
+        return closest_match[0] if closest_match and closest_match[1] > 70 else word
+    
+    def correct_sentence(self, sentence):
+        # Split the input sentence into words
+        words = sentence.split()
+        corrected_words = [self.suggest_word(word) for word in words]
+        return ' '.join(corrected_words)
+
+# Example usage
+if __name__ == "__main__":
+    vocabulary = ["technology", "hello", "world", "Python", "programming", "application", "correct", "example", "machine", "learning", "artificial", "intelligence"]
+
+    autocorrect = AutoCorrect(vocabulary)
+    input_sentence = "Helo, wrld! Welcom to teh wrld of progrmming and techlogy."
+    clean_sentence = autocorrect.clean_text(input_sentence)
+    corrected_sentence = autocorrect.correct_sentence(clean_sentence)
+
+    print("Original Sentence:", input_sentence)
+    print("Corrected Sentence:", corrected_sentence)
+
